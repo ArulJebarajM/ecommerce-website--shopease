@@ -590,7 +590,7 @@ if (showAdminDashboard && authUser?.role === 'admin') {
     <main>
       <section className="hero">
         <div className="hero-copy"><p className="eyebrow"><span className="eyebrow-line"/> THE EVERYDAY EDIT</p><h1>Good things.<br/><em>Well chosen.</em></h1><p className="hero-description">Useful objects, considered design, and little upgrades that make every day feel a bit more special.</p><a href="#shop" className="primary-btn">Explore the collection <ArrowRight size={17}/></a><div className="hero-note"><span className="avatar-stack"><b>J</b><b>M</b><b>A</b></span><span><strong>Made for real life</strong><small>Simple picks. Lasting value.</small></span></div></div>
-        <div className="hero-visual"><div className="hero-sun"/><div className="hero-image-card"><img src="/images/hero.png" alt="Illustrated collection of everyday products"/></div><div className="floating-tag"><span>✳</span><div><strong>Less, but better.</strong><small>A little everyday joy</small></div></div><span className="hero-index">COLLECTION N° 01 / 2026</span></div>
+        <div className="hero-visual"><div className="hero-sun"/><div className="hero-image-card"><img src="/images/hero.png" alt="Illustrated collection of everyday products"/></div><span className="hero-index">COLLECTION N° 01 / 2026</span></div>
       </section>
       <section className="benefits"><div><span>✳</span><p><strong>Thoughtfully selected</strong><small>Useful, everyday essentials</small></p></div><div><span>♧</span><p><strong>Made for daily life</strong><small>Style meets function</small></p></div><div><span>↗</span><p><strong>Easy, friendly shopping</strong><small>A simple checkout experience</small></p></div></section>
       <section className="shop-section" id="shop"><div className="section-heading"><div><p className="eyebrow">THE SHOP</p><h2>Find your <em>favourite.</em></h2></div><p className="section-note">A considered collection of useful things<br/>for home, work, and everywhere between.</p></div>
@@ -770,17 +770,114 @@ if (showAdminDashboard && authUser?.role === 'admin') {
       </section>
       <section className="story" id="story"><div className="story-art"><img src="/images/story.png" alt="Illustration of calm, useful everyday objects"/></div><div><p className="eyebrow">A SMALLER, BETTER WAY</p><h2>Make room for<br/><em>what matters.</em></h2><p>We believe the best things don't need to be complicated. ShopEase is a student-built e-commerce concept focused on simple discovery, clear product details, and a friendly shopping experience.</p><a href="#shop" className="text-btn">Meet the collection <ArrowRight size={16}/></a></div></section>
     </main>
-    <footer id="footer"><div className="footer-top"><a className="brand footer-brand" href="#"><span className="brand-mark">s.</span><span>shop<span className="brand-light">ease</span><small>EVERYDAY, BETTER.</small></span></a><p>A college project made to bring<br/>simple shopping to life.</p><a href="#shop" className="footer-link">Back to shop ↑</a></div><div className="footer-bottom"><span>© 2026 ShopEase Student Project</span><span>Built with the MERN Stack · Demo store</span></div></footer>
+    
+
+<footer id="footer" className="site-footer">
+  <div className="footer-main">
+    {/* Brand and introduction */}
+    <div className="footer-brand-area">
+      <a
+        className="brand footer-brand"
+        href="#"
+        aria-label="ShopEase home"
+      >
+        <span className="brand-mark">s.</span>
+        <span>
+          shop<span className="brand-light">ease</span>
+          <small>EVERYDAY, BETTER.</small>
+        </span>
+      </a>
+
+      <p className="footer-description">
+        A considered collection of useful things.
+        Discover everyday products through a simple,
+        thoughtful shopping experience.
+      </p>
+
+      <a
+        className="footer-social-link"
+        href="https://github.com/ArulJebarajM/ecommerce-website--shopease"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <span aria-hidden="true">↗</span>
+        View project on GitHub
+      </a>
+    </div>
+
+    {/* Shopping navigation */}
+    <div className="footer-column">
+      <h3>Explore</h3>
+      <a href="#shop">All Products</a>
+      <a href="#story">Our Story</a>
+      <a href="#shop">Footwear</a>
+      <a href="#shop">Accessories</a>
+    </div>
+
+    {/* Contact information */}
+    <div className="footer-column">
+      <h3>Contact Us</h3>
+
+      <a href="mailto:arul40083@gmail.com">
+        Email: arul40083@gmail.com
+      </a>
+
+      <a href="tel:+919677751832">
+        Phone: 96777 51832
+      </a>
+
+      <p>
+        <strong>Address</strong>
+        <span>317, Road Street, Irungalur, Trichy</span>
+      </p>
+
+      <p className="footer-small-text">
+        Questions or feedback? Feel free to contact us.
+      </p>
+    </div>
+
+    {/* Demo-store information */}
+    <div className="footer-column">
+      <h3>Shopping Information</h3>
+
+      <p>
+        <strong>Payment</strong>
+        <span>
+          Demo checkout for this portfolio project.
+        </span>
+      </p>
+
+      <p>
+        <strong>Delivery</strong>
+        <span>
+          No real delivery service is represented here.
+        </span>
+      </p>
+    </div>
+  </div>
+
+  {/* Footer bottom */}
+  <div className="footer-bottom">
+    <span>© 2026 ShopEase · Portfolio Project</span>
+
+    <span>
+      Designed with care · Built with the MERN Stack
+    </span>
+
+    <a href="#shop" className="footer-link">
+      Back to shop ↑
+    </a>
+  </div>
+</footer>
+
+
     {notice && <div className="toast"><CheckCircle2 size={17}/>{notice}</div>}
    {selected && (
   <div
     className="overlay"
     onClick={() => setSelected(null)}
   >
-    <section
-      className="modal product-modal"
-      onClick={e => e.stopPropagation()}
-    ></section>
+    
     <section
       className="modal product-modal"
       onClick={e => e.stopPropagation()}

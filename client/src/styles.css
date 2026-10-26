@@ -2106,3 +2106,194 @@
   color: #5e625b;
   background: #ecece7;
 }
+
+.hero-visual {
+  position: relative;
+  min-width: 0;
+}
+
+.hero-image-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background: #f4f0e7;
+}
+
+.hero-image-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+
+/* ShopEase — professional portfolio footer */
+.site-footer {
+  padding: 0 7%;
+  background: #203f32;
+  color: #f8f6ef;
+}
+
+.site-footer .footer-main {
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr 1fr 1.15fr;
+  gap: 44px;
+  padding: 58px 0 48px;
+}
+
+.site-footer .footer-brand-area {
+  max-width: 310px;
+}
+
+.site-footer .footer-brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.site-footer .footer-description {
+  margin: 22px 0 20px;
+  max-width: 280px;
+  color: #d4ded5;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.site-footer .footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #f0d9a5;
+  font-size: 12px;
+  text-decoration: none;
+  transition: opacity 180ms ease;
+}
+
+.site-footer .footer-social-link:hover {
+  opacity: 0.75;
+}
+
+.site-footer .footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.site-footer .footer-column h3 {
+  margin: 4px 0 8px;
+  color: #f8f6ef;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.site-footer .footer-column > a {
+  color: #d4ded5;
+  font-size: 13px;
+  line-height: 1.6;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.site-footer .footer-column > a:hover {
+  color: #f0d9a5;
+}
+
+.site-footer .footer-column > p {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  color: #d4ded5;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.site-footer .footer-column > p strong {
+  color: #f8f6ef;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.site-footer .footer-column .footer-small-text {
+  margin-top: 2px;
+  color: #bfcfc3;
+  font-size: 12px;
+}
+
+.site-footer .footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 0;
+  border-top: 1px solid rgba(248, 246, 239, 0.18);
+  color: #cbd8ce;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.site-footer .footer-link {
+  color: #f8f6ef;
+  font-size: 12px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-footer .footer-link:hover {
+  color: #f0d9a5;
+}
+
+@media (max-width: 950px) {
+  .site-footer .footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 38px 30px;
+  }
+
+  .site-footer .footer-bottom {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 520px) {
+  .site-footer {
+    padding: 0 6%;
+  }
+
+  .site-footer .footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 34px 20px;
+    padding: 42px 0 34px;
+  }
+
+  .site-footer .footer-brand-area {
+    grid-column: 1 / -1;
+    max-width: 100%;
+  }
+
+  .site-footer .footer-description {
+    max-width: 330px;
+  }
+
+  .site-footer .footer-column h3 {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .site-footer .footer-column > a,
+  .site-footer .footer-column > p {
+    font-size: 12px;
+  }
+
+  .site-footer .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
+    padding: 18px 0 22px;
+  }
+}
