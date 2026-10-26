@@ -11,30 +11,28 @@ export async function sendEmail({ to, subject, text, html }) {
     throw new Error("EMAIL_FROM is missing");
   }
 
-  const recipients = Array.isArray(to)
-    ? to.map((email) =>
-        typeof email === "string" ? { email } : email
-      )
-    : [{ email: to }];
-
-  const response = await fetch(
-    "https://api.brevo.com/v3/smtp/email",
-    {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "api-key": apiKey,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        sender: { email: from },
-        to: recipients,
-        subject,
-        textContent: text,
-        htmlContent: html,
-      }),
-    }
+  const recipients = (Array.isArray(to) ? to : [to]).map(
+    (recipient) =>
+      typeof recipient === "string"
+        ? { email: recipient }
+        : recipient
   );
+
+  const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "api-key": apiKey,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      sender: { email: from },
+      to: recipients,
+      subject,
+      ...(text ? { textContent: text } : {}),
+      ...(html ? { htmlContent: html } : {}),
+    }),
+  });
 
   if (!response.ok) {
     const errorDetails = await response.text();
