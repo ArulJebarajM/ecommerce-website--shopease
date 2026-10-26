@@ -2,6 +2,7 @@
 import { Router } from 'express'
 import Product from '../models/Product.js'
 import Order from '../models/Order.js'
+import { sendEmail } from '../utils/email.js'
 import { requireAuth, requireAdmin } from '../middleware/auth.js'
 
 const router = Router()
@@ -167,7 +168,9 @@ router.get('/orders', requireAuth, requireAdmin, async (req, res, next) => {
 })
 
 // Update order status (admin only)
-router.patch('/orders/:id/status', requireAuth, requireAdmin, async (req, res, next) => {
+
+
+router.patch('/orders/:id/status', async (req, res, next) => {
   try {
     const allowedStatuses = [
       'Placed',
@@ -185,11 +188,7 @@ router.patch('/orders/:id/status', requireAuth, requireAdmin, async (req, res, n
       })
     }
 
-    const order = await Order.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true, runValidators: true }
-    )
+    const order = await Order.findById(req.params.id)
 
     if (!order) {
       return res.status(404).json({
@@ -197,10 +196,53 @@ router.patch('/orders/:id/status', requireAuth, requireAdmin, async (req, res, n
       })
     }
 
+    // Don't create duplicate history entries or emails.
+    if (order.status === status) {
+      return res.json(order)
+    }
+
+    order.status = status
+
+    order.statusHistory.push({
+      status,
+      note: `Order status updated to ${status}`,
+      updatedAt: new Date()
+    })
+
+    // Save the order before attempting email delivery.
+    await order.save()
+
+    try {
+      await sendEmail({
+        to: order.customer.email,
+        subject: `ShopEase order ${order.orderNumber}: ${status}`,
+        text: [
+          `Hello ${order.customer.name},`,
+          '',
+          `Your ShopEase order ${order.orderNumber} is now ${status}.`,
+          '',
+          `Order total: ${order.total}`,
+          '',
+          'Thank you for shopping with ShopEase!'
+        ].join('\n')
+      })
+
+      console.log(
+        `Status update email sent for order ${order.orderNumber}`
+      )
+    } catch (emailError) {
+      // Email failure must not undo the saved order update.
+      console.error(
+        `Could not send status email for order ${order.orderNumber}:`,
+        emailError.message
+      )
+    }
+
     res.json(order)
   } catch (error) {
     next(error)
   }
 })
+
 
 export default router

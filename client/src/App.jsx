@@ -1299,6 +1299,40 @@ if (showAdminDashboard && authUser?.role === 'admin') {
                   <span>Total</span>
                   <strong>{money(order.total)}</strong>
                 </div>
+                
+<div className="order-tracking">
+  <h3>Order Tracking</h3>
+
+  {order.statusHistory?.length > 0 ? (
+    <div className="tracking-timeline">
+      {order.statusHistory.map((event, index) => (
+        <div
+          className="tracking-event"
+          key={`${event.status}-${index}`}
+        >
+          <span className="tracking-dot" />
+
+          <div className="tracking-event-content">
+            <strong>{event.status}</strong>
+
+            {event.note && <p>{event.note}</p>}
+
+            <small>
+              {event.updatedAt
+                ? new Date(event.updatedAt).toLocaleString('en-IN')
+                : 'Time unavailable'}
+            </small>
+          </div>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <p className="muted">
+      Tracking history is not available for this order yet.
+    </p>
+  )}
+</div>
+
                 <button
   type="button"
   className="buy-again-btn"

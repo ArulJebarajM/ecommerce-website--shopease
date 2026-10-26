@@ -2297,3 +2297,75 @@
     padding: 18px 0 22px;
   }
 }
+
+
+.order-tracking {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #e5e7df;
+}
+
+.order-tracking h3 {
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tracking-timeline {
+  position: relative;
+  padding-left: 6px;
+}
+
+.tracking-event {
+  position: relative;
+  display: flex;
+  gap: 13px;
+  padding-bottom: 20px;
+}
+
+.tracking-event:last-child {
+  padding-bottom: 0;
+}
+
+.tracking-event:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 14px;
+  bottom: 0;
+  width: 2px;
+  background: #d9dfd3;
+}
+
+.tracking-dot {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+  margin-top: 3px;
+  border-radius: 50%;
+  background: #496b52;
+  border: 2px solid #e4ebdf;
+}
+
+.tracking-event-content {
+  min-width: 0;
+}
+
+.tracking-event-content strong {
+  display: block;
+  font-size: 12px;
+}
+
+.tracking-event-content p {
+  margin: 5px 0;
+  color: #72786f;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.tracking-event-content small {
+  color: #858a82;
+  font-size: 10px;
+}

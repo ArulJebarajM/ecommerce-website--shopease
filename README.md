@@ -2,7 +2,14 @@
 
 **A Modern Full-Stack E-commerce Web Application Built with the MERN Stack**
 
-ShopEase is a full-stack e-commerce application built using MongoDB, Express.js, React, and Node.js. It provides a modern shopping interface with product discovery, cart management, customer accounts, order handling, and administrative product management.
+ShopEase is a full-stack e-commerce application built using MongoDB, Express.js, React, and Node.js. It provides a modern shopping interface with product discovery, cart management, customer accounts, order handling, order tracking, email notifications, and administrative product management.
+
+## Live Demo
+
+- **Website:** https://ecommerce-website-shopease-peach.vercel.app
+- **Backend API:** https://shopease-api-bshj.onrender.com
+
+The frontend is hosted on Vercel, and the backend API is hosted on Render.
 
 ---
 
@@ -25,59 +32,89 @@ ShopEase is a full-stack e-commerce application built using MongoDB, Express.js,
 - [License](#license)
 - [Developer](#developer)
 
+---
+
 ## Overview
 
-ShopEase combines a React-based storefront with an Express REST API and MongoDB database. The frontend handles the shopping experience, while the backend manages supported product and order operations.
+ShopEase combines a React-based storefront with an Express REST API and MongoDB database.
 
 The project is organized into two main applications:
 
 - **Client:** React frontend powered by Vite.
 - **Server:** Node.js and Express backend connected to MongoDB using Mongoose.
 
+The application supports product browsing, cart operations, customer accounts, order creation, order status tracking, email notifications, and administrative product management.
+
 ## Features
 
-### Product Catalog
+### 1. Product Catalog
+
 - Browse available products.
 - Search products by name.
 - Filter products by category.
-- View product information through a quick-view interface.
+- View product details.
 - Display product images and prices.
 
-### Shopping Cart
+### 2. Shopping Cart
+
 - Add products to the cart.
 - Increase or decrease item quantities.
 - Remove products from the cart.
 - Calculate the subtotal based on product quantities and prices.
 
-### Customer Accounts
+### 3. Customer Accounts
+
 - Customer registration.
 - Customer login.
-- Authentication-dependent functionality, according to the current implementation.
+- Access authentication-dependent functionality.
 
-### Orders and Checkout
-- Demo checkout workflow.
+### 4. Orders and Checkout
+
 - Submit orders through the backend.
-- Store supported order information in MongoDB.
-- Retrieve order details through the available API.
-- Order history functionality, where connected to the current implementation.
+- Store order information in MongoDB.
+- Generate an order number.
+- View order information and order history where supported by the application.
+- Support a demonstration checkout workflow.
 
-### Product Reviews
-- Product review functionality, where implemented and connected to the application.
+### 5. Order Tracking
 
-### Admin Product Management
+- Track order status.
+- Record order status changes in the order's status history.
+- Store timestamps for status updates.
+- Display order progress where the tracking interface is implemented.
+
+Order history entries help record the order's progress from placement through subsequent status changes.
+
+### 6. Email Notifications
+
+ShopEase includes email notifications using **Nodemailer and Brevo SMTP**.
+
+- **Order confirmation email:** Sent after an order is created.
+- **Order status update email:** Sent when an administrator changes an order's status.
+- **SMTP configuration:** Uses environment variables to keep email credentials outside the source code.
+- **Error handling:** Email sending failures are handled separately so an email failure does not automatically undo a saved order or status change.
+
+Email delivery requires valid SMTP credentials and a verified sender address.
+
+### 7. Admin Product Management
+
 - Create products.
 - Update product information.
 - Delete products.
-- Manage product data through administrative API endpoints.
+- Manage products through administrative API endpoints.
+- Update order statuses where supported by the admin functionality.
 
-### Additional Features
+### 8. Additional Features
+
 - Responsive storefront interface.
 - REST API architecture.
 - MongoDB and Mongoose integration.
-- Sample product seeding script.
-- PNG product images, where included in `client/public/images/`.
+- Sample product seeding, if configured in the backend.
+- Product images stored in the frontend's public assets, where included.
 
-> **Note:** Features depend on the current source code and backend configuration. Checkout is a demonstration flow, not a real payment-processing integration.
+> **Note:** Checkout is a demonstration flow and does not process real payments.
+
+---
 
 ## Technology Stack
 
@@ -90,8 +127,14 @@ The project is organized into two main applications:
 | Express.js | REST API |
 | MongoDB | Database |
 | Mongoose | Database modeling |
+| Nodemailer | Email notifications |
+| Brevo SMTP | Email delivery |
 | npm | Package management |
 | Git and GitHub | Version control |
+| Vercel | Frontend hosting |
+| Render | Backend hosting |
+
+---
 
 ## Project Structure
 
@@ -104,17 +147,20 @@ shopease-mern-ecommerce/
 │   ├── package.json
 │   └── vite.config.js
 ├── server/
-│   ├── models/
-│   ├── routes/
+│   ├── src/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── utils/
 │   ├── scripts/
 │   ├── package.json
 │   └── .env.example
-├── docs/
 ├── .gitignore
 └── README.md
 ```
 
-This is a representative structure. Actual filenames and folders may differ in the repository.
+*This is a representative structure. Some folders or filenames may differ in the current repository.*
+
+---
 
 ## Prerequisites
 
@@ -122,10 +168,10 @@ Install the following software:
 
 - [Node.js](https://nodejs.org/) — preferably an LTS release.
 - npm — included with Node.js.
-- [MongoDB Community Server](https://www.mongodb.com/try/download/community) or [MongoDB Atlas](https://www.mongodb.com/atlas).
+- [MongoDB](https://www.mongodb.com/) — local installation or MongoDB Atlas.
 - [Git](https://git-scm.com/).
 
-Verify the installations:
+Verify your installations:
 
 ```bash
 node --version
@@ -133,18 +179,20 @@ npm --version
 git --version
 ```
 
+---
+
 ## Getting Started
 
 ### 1. Clone the Repository
 
-Replace `YOUR_REPOSITORY_URL` with the actual GitHub repository URL.
+Replace `YOUR_REPOSITORY_URL` with your GitHub repository URL.
 
 ```bash
 git clone YOUR_REPOSITORY_URL
 cd shopease-mern-ecommerce
 ```
 
-If you already have the project on your computer, open its existing root folder.
+If you already have the project on your computer, open the existing project folder instead.
 
 ### 2. Install Backend Dependencies
 
@@ -153,53 +201,65 @@ cd server
 npm install
 ```
 
-### 3. Configure the Environment
+### 3. Install Frontend Dependencies
 
-If `server/.env.example` exists, create a local environment file.
-
-**Windows PowerShell:**
-
-```powershell
-Copy-Item .env.example .env
-```
-
-**macOS / Linux:**
+Open a second terminal from the project root:
 
 ```bash
-cp .env.example .env
+cd client
+npm install
 ```
 
-Open `server/.env` and configure the variables required by the backend.
+### 4. Configure Environment Variables
+
+Create a `.env` file inside the `server` directory.
+
+If `server/.env.example` exists, use it as a starting point. Make sure the variable names match those used by the backend.
 
 Example configuration:
 
 ```dotenv
 PORT=5000
-MONGODB_URI=mongodb://127.0.0.1:27017/shopease
-JWT_SECRET=replace_with_a_long_random_secret
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_long_random_secret
+
+SMTP_HOST=smtp-relay.brevo.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your_smtp_login
+SMTP_PASS=your_smtp_key
+EMAIL_FROM=your_verified_sender_email
 ```
 
-These are example values. Use the variable names required by your actual backend code and `.env.example` file.
+**Configuration notes:**
 
-Never commit real passwords, database credentials, JWT secrets, or API keys.
+- `PORT` specifies the backend port.
+- `MONGODB_URI` contains your MongoDB connection string.
+- `JWT_SECRET` is used for authentication token signing if required by the application.
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, and `SMTP_PASS` configure the SMTP connection.
+- `EMAIL_FROM` specifies the sender address configured for email delivery.
 
-### 4. Start MongoDB
+Use your own credentials. Do not copy real secrets into this README or commit your `.env` file to GitHub.
 
-For a local database, ensure MongoDB is running.
+### 5. Configure MongoDB
 
-For MongoDB Atlas, configure your connection string and verify the database user's permissions and network access settings.
+For a local MongoDB installation, ensure the database service is running.
 
-### 5. Seed Sample Products
+For MongoDB Atlas, configure your connection string and confirm that your database user and network access settings permit the connection.
 
-If the backend defines a seed script, run it from the `server` directory:
+### 6. Seed Sample Products
+
+If the backend has a seed script configured in `server/package.json`, run the appropriate command from the `server` directory.
+
+For example, if the script is named `seed`:
 
 ```bash
 npm run seed
 ```
 
-Check `server/package.json` if the script has a different name. Review the seed script before rerunning it to understand whether it inserts, replaces, or removes existing data.
+Check `server/package.json` for the actual script name before running it.
 
-### 6. Start the Backend
+### 7. Start the Backend
 
 From the `server` directory:
 
@@ -207,65 +267,88 @@ From the `server` directory:
 npm run dev
 ```
 
-The backend commonly runs at:
+The backend may run at:
 
 ```text
 http://localhost:5000
 ```
 
-The actual port depends on the environment configuration.
+The actual port depends on your environment configuration.
 
-### 7. Install and Start the Frontend
+### 8. Start the Frontend
 
-Open a second terminal in the project root:
+From the `client` directory in a separate terminal:
 
 ```bash
-cd client
-npm install
 npm run dev
 ```
 
-Vite will display the frontend URL, commonly:
+Vite will display the local frontend URL, commonly:
 
 ```text
 http://localhost:5173
 ```
 
-Open the URL printed in the terminal.
+Open the URL shown in your terminal.
 
-**Keep both frontend and backend terminals running while using the application.**
+**Keep both the backend and frontend development servers running while using the local application.**
+
+---
 
 ## Environment Configuration
 
-The backend may use the following variables:
+The backend configuration may include the following variables:
 
 | Variable | Description |
 |---|---|
-| `PORT` | Port used by the backend |
+| `PORT` | Backend server port |
 | `MONGODB_URI` | MongoDB connection string |
-| `JWT_SECRET` | Secret used for JWT signing, if JWT is implemented |
+| `JWT_SECRET` | Authentication secret, if required |
+| `SMTP_HOST` | SMTP server hostname |
+| `SMTP_PORT` | SMTP server port |
+| `SMTP_SECURE` | Whether to use a secure SMTP connection |
+| `SMTP_USER` | SMTP login username |
+| `SMTP_PASS` | SMTP password or provider key |
+| `EMAIL_FROM` | Verified sender email address |
 
-The exact variables depend on the current source code. Update `.env.example` whenever new configuration variables are introduced, but use placeholders rather than real secrets.
+The exact variables depend on the backend source code. Keep `server/.env.example` updated when configuration requirements change, using placeholders rather than real credentials.
+
+---
+
+## Running the Application
+
+To run ShopEase locally:
+
+1. Start MongoDB or confirm your Atlas database is accessible.
+2. Start the backend from the `server` directory.
+3. Start the frontend from the `client` directory in another terminal.
+4. Open the local frontend URL provided by Vite.
+5. Verify that products load and that the backend can connect to MongoDB.
+6. Configure SMTP if you want to test email notifications.
+
+---
 
 ## Using ShopEase
 
-1. Start MongoDB.
-2. Start the backend server.
-3. Start the frontend development server in a separate terminal.
-4. Open the local frontend URL.
-5. Browse products or search by name.
-6. Filter products by category.
-7. Open product details.
-8. Add products to the cart.
-9. Update quantities and review the subtotal.
-10. Test the demo checkout and order functionality.
-11. Use administrative functionality only with a properly authorized account.
+1. Open the ShopEase website.
+2. Browse products or search by name.
+3. Filter products by category.
+4. Open product details.
+5. Add products to the shopping cart.
+6. Adjust quantities and review the subtotal.
+7. Complete the demonstration checkout.
+8. View order information and track status where available.
+9. Check the order confirmation email if email delivery is configured.
+10. Use authorized administrative functionality to manage products and update order statuses.
+11. Check the status update email after changing an order's status.
 
-Some actions require customer authentication or administrative permissions, depending on the implementation.
+Some features require authentication or administrative permissions.
+
+---
 
 ## Demo Accounts
 
-The following account details were provided for local testing. The accounts must exist in the configured database and be supported by the current authentication system.
+Use the following account identifiers for local testing only if the accounts exist in your configured database and are supported by the current authentication implementation.
 
 ### Customer Account
 
@@ -273,97 +356,122 @@ The following account details were provided for local testing. The accounts must
 |---|---|
 | Name | AKASH |
 | Email | `aka@gmail.com` |
-| Password | Configure locally; do not publish it here |
+| Password | Configure locally |
 
 ### Administrator Account
 
 | Field | Value |
 |---|---|
 | Email | `admin@shopease.local` |
-| Password | Configure locally; do not publish it here |
+| Password | Configure locally |
 
-**Security:** These are demonstration account details, not guaranteed working credentials. Do not publish passwords in a public README. If the supplied passwords are used by an existing account, keep them private and change them if they have already been exposed.
+These details do not guarantee that the accounts exist or that login will succeed. Configure or create accounts using the application's supported authentication flow.
+
+**Security:** Do not publish account passwords in a public README. Never share real passwords, authentication secrets, or SMTP credentials.
+
+---
 
 ## API Reference
 
-The following table describes the intended API routes. Verify each endpoint against the current backend implementation.
+The backend exposes REST API endpoints for supported application operations.
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/health` | Check API health |
-| `GET` | `/api/products` | Retrieve products |
-| `GET` | `/api/products/:id` | Retrieve a product by ID |
-| `POST` | `/api/orders` | Create a demo order |
-| `GET` | `/api/orders/:id` | Retrieve order details |
-| `POST` | `/api/admin/products` | Create a product |
-| `PUT` | `/api/admin/products/:id` | Update a product |
-| `DELETE` | `/api/admin/products/:id` | Delete a product |
+The following is an overview of common endpoint patterns. Check the route files in `server/src/routes/` for the exact paths, HTTP methods, request formats, and authorization requirements.
+
+| Operation | Purpose |
+|---|---|
+| Product endpoints | Retrieve and manage product data |
+| Customer authentication endpoints | Register or log in customers |
+| Order endpoints | Create and retrieve supported order information |
+| Admin product endpoints | Create, update, and delete products |
+| Admin order endpoints | Update order statuses where implemented |
 
 ### Example API Request
 
-Retrieve the product catalog:
+Retrieve the product catalog from a locally running backend:
 
 ```bash
 curl http://localhost:5000/api/products
 ```
 
-The response format depends on the backend implementation.
+The actual response depends on the backend implementation.
 
-Administrative endpoints must be protected by server-side authorization. Do not rely on a fixed demo key or demonstration header for production security.
+Administrative endpoints should enforce server-side authorization. Do not rely on frontend-only restrictions to protect sensitive operations.
+
+---
 
 ## Security
 
-Before public deployment:
+Before using the application beyond demonstration purposes:
 
+- Keep database credentials and secrets in environment variables.
 - Hash customer passwords securely.
 - Enforce authentication and role-based authorization on the server.
 - Validate incoming request data.
 - Verify order ownership before returning private order information.
 - Calculate order totals on the server.
 - Configure CORS and rate limiting appropriately.
-- Use HTTPS in deployment.
-- Keep environment secrets outside the repository.
-- Implement appropriate cookie and CSRF protections where applicable.
-- Use a payment-provider sandbox if payment integration is added.
-- Add automated tests and conduct a security review.
+- Use HTTPS in deployed environments.
+- Protect administrative endpoints.
+- Review error handling and application logs.
+- Test email notification behavior without exposing SMTP credentials.
 
-The demo checkout must not be used to accept real payments.
+**ShopEase's demonstration checkout must not be used to accept real payments.** A payment provider and appropriate security measures are needed for real transactions.
+
+---
 
 ## Troubleshooting
 
-### Backend cannot connect to MongoDB
-- Check that MongoDB is running.
-- Verify `MONGODB_URI` in `server/.env`.
-- Confirm your database permissions and connection settings.
+### Backend Cannot Connect to MongoDB
 
-### Frontend cannot load products
-- Confirm the backend is running.
-- Check the API URL used by the frontend.
+- Check `MONGODB_URI` in `server/.env`.
+- Ensure MongoDB is running or Atlas is accessible.
+- Verify the database user's permissions and connection settings.
+
+### Frontend Cannot Load Products
+
+- Confirm that the backend is running.
+- Check the API URL configured in the frontend.
 - Inspect the browser console and backend terminal for errors.
 
-### `npm run dev` is unavailable
+### Email Notifications Do Not Arrive
+
+- Verify the SMTP host, port, username, and password.
+- Confirm that the sender address is verified with your email provider.
+- Check backend logs for email errors.
+- Check the recipient's spam or junk folder.
+
+### `npm run dev` Does Not Work
+
 - Run `npm install` in the relevant `client` or `server` directory.
 - Check the `scripts` section in that directory's `package.json`.
+- Confirm that Node.js and npm are installed.
 
-### Demo login fails
+### Demo Login Fails
+
 - Confirm that the account exists in the database.
-- Verify that the login endpoint and authentication settings match the current implementation.
-- Do not expose account passwords or secret values when asking for help.
+- Verify the configured authentication settings.
+- Use the correct login flow supported by the application.
+- Never share passwords or secret values when asking for help.
+
+---
 
 ## Future Improvements
 
-- Persistent shopping cart and wishlist.
-- Improved order history and order status tracking.
-- Product inventory management.
-- Secure role-based admin dashboard.
-- Payment-provider sandbox integration.
+- Payment gateway integration.
+- Improved inventory management.
+- Persistent wishlist and shopping cart.
+- Enhanced customer order history.
 - Automated unit and integration tests.
 - Improved logging and error handling.
-- Deployment with secure environment configuration.
+- Additional security improvements.
+
+---
 
 ## License
 
-No license is specified by this README. Add a `LICENSE` file if you want to grant others permission to use, modify, or redistribute the project.
+No license is specified in this README. Add a `LICENSE` file if you want to grant others permission to use, modify, or redistribute the project.
+
+---
 
 ## Developer
 

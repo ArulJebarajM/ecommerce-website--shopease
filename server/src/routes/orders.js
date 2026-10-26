@@ -2,6 +2,7 @@
 import { Router } from 'express'
 import Order from '../models/Order.js'
 import Product from '../models/Product.js'
+import { sendEmail } from '../utils/email.js'
 import { requireAuth } from '../middleware/auth.js'
 
 const router = Router()
@@ -126,8 +127,51 @@ if (
           address: customer.address.trim()
         },
         items: safeItems,
+        
+statusHistory: [
+  {
+    status: 'Placed',
+    note: 'Order placed successfully',
+    updatedAt: new Date()
+  }
+],
+
         total
       })
+      
+      // Send confirmation after the order has been saved.
+      try {
+        await sendEmail({
+          to: order.customer.email,
+          subject: `ShopEase order confirmation - ${order.orderNumber}`,
+          text: [
+            `Hello ${order.customer.name},`,
+            '',
+            'Thank you for shopping with ShopEase!',
+            `Your order ${order.orderNumber} has been placed successfully.`,
+            '',
+            'Order details:',
+            ...order.items.map(
+              item => `${item.name} x ${item.quantity} - ${item.price * item.quantity}`
+            ),
+            '',
+            `Total: ${order.total}`,
+            `Current status: ${order.status}`,
+            '',
+            'We will email you when your order status changes.'
+          ].join('\n')
+        })
+
+        console.log(
+          `Order confirmation email sent for ${order.orderNumber}`
+        )
+      } catch (emailError) {
+        // Do not undo order creation if email delivery fails.
+        console.error(
+          `Could not send order confirmation for ${order.orderNumber}:`,
+          emailError.message
+        )
+      }
 
       return res.status(201).json(order)
     } catch (error) {
