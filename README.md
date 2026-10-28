@@ -9,7 +9,7 @@ ShopEase is a full-stack e-commerce web application built with MongoDB, Express.
 - **Website:** [Visit ShopEase](https://ecommerce-website-shopease-peach.vercel.app/)
 - **Backend API:** [View Backend API](https://shopease-api-bshj.onrender.com/)
 - **Project Presentation:** [View ShopEase Presentation](https://1drv.ms/p/c/a9f1ba206d202072/IQCKPveyJ32sQbXoz8Q_xw8pAdDorqU3AJq4U7Q0I3fJ90c?e=aL6bal)
-- **GitHub Repository:** [View Source Code](https://github.com/ArulJebarajM/ecommerce-website--shopease)
+  
 
 The frontend is deployed on Vercel, and the backend API is deployed on Render.
 
@@ -160,7 +160,7 @@ For the exact endpoint paths, HTTP methods, request formats, and authorization r
 
 - **Frontend:** [Vercel deployment](https://ecommerce-website-shopease-peach.vercel.app/)
 - **Backend:** [Render deployment](https://shopease-api-bshj.onrender.com/)
-- **Presentation:** [ShopEase project presentation](https://1drv.ms/p/c/a9f1ba206d202072/IQCKPveyJ32sQbXoz8Q_xw8pAdDorqU3AJq4U7Q0I3fJ90c?e=aL6bal)
+  
 
 Ensure that production environment variables, database access, frontend API configuration, and CORS settings match the deployment configuration.
 
@@ -177,7 +177,7 @@ Ensure that production environment variables, database access, frontend API conf
 **Arul Jebaraj M**
 
 - [GitHub Profile](https://github.com/ArulJebarajM)
-- [ShopEase Repository](https://github.com/ArulJebarajM/ecommerce-website--shopease)
+  
 
 ---
 
